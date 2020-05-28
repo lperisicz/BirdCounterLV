@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BirdCounterLV</string>
+    <string name="bird_one">Bird One</string>
+    <string name="bird_two">Bird Two</string>
+    <string name="bird_three">Bird Three</string>
+    <string name="bird_four">Bird Four</string>
+    <string name="reset">Reset</string>
+</resources>
