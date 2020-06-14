@@ -5,19 +5,24 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.perisic.luka.birdcounterlv.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val dataKey = "counterData"
 const val selectedDataKey = "counterSelectedData"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ClickHandler {
 
     private val viewModel: MainViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
         retrieveData()
         setupUi()
     }
@@ -27,12 +32,17 @@ class MainActivity : AppCompatActivity() {
         saveData()
     }
 
+    override fun onBirdClick(index: Int) {
+        viewModel.countBird(index)
+    }
+
+    override fun onResetClick() {
+        viewModel.resetCounter()
+    }
+
     private fun setupUi() {
-        viewModel.birds.observe(this, Observer { list ->
-            textViewScores.text = list?.joinToString(separator = "\n") {
-                "${it.name}: ${it.count}"
-            }
-        })
+        binding.countStatus = viewModel.birdsDisplay
+        binding.handler = this
         viewModel.selectedBird.observe(this, Observer {
             it?.let {
                 textViewScores.setTextColor(ContextCompat.getColor(this, android.R.color.white))
@@ -52,11 +62,7 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         })
-        buttonOne.setOnClickListener { viewModel.countBird(0) }
-        buttonTwo.setOnClickListener { viewModel.countBird(1) }
-        buttonThree.setOnClickListener { viewModel.countBird(2) }
-        buttonFour.setOnClickListener { viewModel.countBird(3) }
-        buttonReset.setOnClickListener { viewModel.resetCounter() }
+
     }
 
     private fun retrieveData() {

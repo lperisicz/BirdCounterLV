@@ -1,6 +1,7 @@
 package com.perisic.luka.birdcounterlv
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -8,6 +9,11 @@ import com.google.gson.reflect.TypeToken
 class MainViewModel : ViewModel() {
 
     val birds = MutableLiveData<List<Bird>>()
+    val birdsDisplay = map(birds) { birds ->
+        birds?.joinToString(separator = "\n") {
+            "${it.name}: ${it.count}"
+        } ?: ""
+    }
     val selectedBird = MutableLiveData<Bird>(null)
 
     fun setData(stringData: String) {

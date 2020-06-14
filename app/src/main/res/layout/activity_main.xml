@@ -1,93 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".MainActivity">
+<layout>
 
-    <TextView
-        android:id="@+id/textViewScores"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:text="Hello World!"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Bird 1: 23\nBird 2: 24\nBird 3: 24\nBird 4: 34" />
+    <data>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        <variable
+            name="handler"
+            type="com.perisic.luka.birdcounterlv.ClickHandler" />
 
-    <Button
-        android:id="@+id/buttonOne"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="12dp"
-        android:background="@color/colorFirst"
-        android:text="@string/bird_one"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toStartOf="@id/guideline"
-        app:layout_constraintStart_toStartOf="@id/textViewScores"
-        app:layout_constraintTop_toBottomOf="@id/textViewScores" />
+        <variable
+            name="countStatus"
+            type="androidx.lifecycle.LiveData&lt;String>" />
 
-    <Button
-        android:id="@+id/buttonTwo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:background="@color/colorSecond"
-        android:text="@string/bird_two"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/textViewScores"
-        app:layout_constraintStart_toStartOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/textViewScores"
-        app:layout_goneMarginStart="12dp" />
+    </data>
 
-    <Button
-        android:id="@+id/buttonThree"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="12dp"
-        android:background="@color/colorThird"
-        android:text="@string/bird_three"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toStartOf="@id/guideline"
-        app:layout_constraintStart_toStartOf="@id/textViewScores"
-        app:layout_constraintTop_toBottomOf="@id/buttonOne" />
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/buttonFour"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="48dp"
-        android:background="@color/colorFourth"
-        android:text="@string/bird_four"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/textViewScores"
-        app:layout_constraintStart_toStartOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/buttonOne" />
+        <TextView
+            android:id="@+id/textViewScores"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:text="@{countStatus}"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Bird 1: 23\nBird 2: 24\nBird 3: 24\nBird 4: 34" />
 
-    <Button
-        android:id="@+id/buttonReset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="@string/reset"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonFour" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/buttonOne"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="12dp"
+            android:background="@color/colorFirst"
+            android:onClick="@{() -> handler.onBirdClick(0)}"
+            android:text="@string/bird_one"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="@id/textViewScores"
+            app:layout_constraintTop_toBottomOf="@id/textViewScores" />
+
+        <Button
+            android:id="@+id/buttonTwo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:background="@color/colorSecond"
+            android:onClick="@{() -> handler.onBirdClick(1)}"
+            android:text="@string/bird_two"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@id/textViewScores"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/textViewScores"
+            app:layout_goneMarginStart="12dp" />
+
+        <Button
+            android:id="@+id/buttonThree"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="12dp"
+            android:background="@color/colorThird"
+            android:onClick="@{() -> handler.onBirdClick(2)}"
+            android:text="@string/bird_three"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="@id/textViewScores"
+            app:layout_constraintTop_toBottomOf="@id/buttonOne" />
+
+        <Button
+            android:id="@+id/buttonFour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="48dp"
+            android:background="@color/colorFourth"
+            android:onClick="@{() -> handler.onBirdClick(3)}"
+            android:text="@string/bird_four"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@id/textViewScores"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/buttonOne" />
+
+        <Button
+            android:id="@+id/buttonReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:onClick="@{() -> handler.onResetClick()}"
+            android:text="@string/reset"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonFour" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
